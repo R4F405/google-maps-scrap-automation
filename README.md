@@ -7,8 +7,19 @@ Scripts para automatizar la recolección de datos de Google Maps mediante una AP
 Estos scripts te permiten extraer datos de Google Maps de forma automática. Para utilizarlos, necesitas:
 
 1. Tener Python instalado (versión 3.6 o superior)
-2. Instalar la dependencia con: `pip install requests`
+2. Instalar las dependencias con: `pip install requests tkinter`
 3. Tener la API de scraping funcionando en tu equipo local u otro servidor
+
+### Modo más fácil (Launcher Gráfico):
+
+```bash
+python scraper_launcher.py
+```
+
+**Este launcher te permite elegir entre las diferentes opciones disponibles:**
+- Scraper Simple
+- Batch Scraper
+- Interfaz Gráfica (GUI)
 
 ### Uso rápido del script básico:
 
@@ -51,6 +62,21 @@ python batch_scraper.py --categories "1,5" --locations "1"
 python batch_scraper.py --dry-run
 ```
 
+### Uso de la Interfaz Gráfica (GUI):
+
+```bash
+python scraper_gui.py
+```
+
+**Características de la interfaz gráfica:**
+1. Interfaz con pestañas para configurar todos los parámetros
+2. Selección visual de categorías y localizaciones mediante checkboxes
+3. Vista previa de palabras clave disponibles
+4. Información detallada de las localizaciones seleccionadas
+5. Resumen del trabajo antes de ejecutarlo
+6. Panel de logs para seguir el progreso
+7. Posibilidad de cancelar trabajos en ejecución
+
 **Los resultados** se guardarán automáticamente en la carpeta "results".
 
 ---
@@ -60,10 +86,45 @@ python batch_scraper.py --dry-run
 - `keywords/`: Directorio con archivos de palabras clave organizados por categoría.
 - `location/`: Directorio con archivos de coordenadas para diferentes localidades.
 - `results/`: Directorio donde se guardarán los resultados de los trabajos.
+- `scraper_launcher.py`: Launcher gráfico para seleccionar el modo de scraping.
+- `scraper_gui.py`: Interfaz gráfica completa para configurar y ejecutar trabajos.
 
 ## Scripts disponibles
 
-### 1. scraper.py
+### 1. scraper_launcher.py
+
+Launcher gráfico que permite seleccionar entre los diferentes modos de scraping disponibles.
+
+#### Uso:
+
+```bash
+python scraper_launcher.py
+```
+
+El launcher te permite elegir entre:
+- Scraper Simple: Ejecuta el script básico interactivo
+- Batch Scraper: Ejecuta el script para procesamiento por lotes
+- Interfaz Gráfica (GUI): Abre la interfaz gráfica completa
+
+### 2. scraper_gui.py
+
+Interfaz gráfica completa para configurar y ejecutar trabajos de scraping con todas las opciones.
+
+#### Uso:
+
+```bash
+python scraper_gui.py
+```
+
+Características:
+- Interfaz de pestañas para una organización clara
+- Pestaña de Configuración: Host API, nombre del trabajo, radio, profundidad, tiempos
+- Pestaña de Categorías: Selección múltiple de categorías con vista previa de keywords
+- Pestaña de Localizaciones: Selección múltiple de localizaciones con información detallada
+- Pestaña de Ejecución: Resumen del trabajo, panel de logs, controles de ejecución
+- Gestión automatizada de resultados
+
+### 3. scraper.py
 
 Script básico para realizar un solo trabajo de scraping.
 
@@ -80,7 +141,7 @@ El script te guiará interactivamente para:
 - Seleccionar una localidad
 - Enviar la solicitud a la API
 
-### 2. scraper_advanced.py
+### 4. scraper_advanced.py
 
 Versión avanzada que permite seleccionar múltiples palabras clave y monitorea el estado del trabajo hasta que se complete.
 
@@ -96,7 +157,7 @@ Características adicionales:
 - Monitoreo del estado del trabajo en tiempo real
 - Guardado automático de los resultados
 
-### 3. batch_scraper.py
+### 5. batch_scraper.py
 
 Script para procesamiento por lotes que permite ejecutar varios trabajos secuencialmente.
 
@@ -154,7 +215,7 @@ Cada archivo contiene tres líneas:
 ## Requisitos
 
 - Python 3.6 o superior
-- Módulos: requests
+- Módulos: requests, tkinter (incluido en la mayoría de instalaciones de Python)
 
 Instalar dependencias:
 ```bash
