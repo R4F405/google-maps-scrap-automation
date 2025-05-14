@@ -1,0 +1,27 @@
+Hotel
+Hostal
+Pensión
+Camping
+Terreno de camping
+Albergue
+Albergue juvenil
+Casa rural
+Alojamiento rural
+Bed & Breakfast
+Alojamiento y desayuno
+Apartamento turístico
+Alquiler de apartamento vacacional 
+Casa de vacaciones
+Hotel boutique 
+Hotel rural
+Estacionamiento de autocaravanas
+Área de autocaravanas
+Cabaña
+Bungalow
+Refugio de montaña
+Posada
+Apartahotel
+Lodge
+Hacienda turística
+Glamping 
+Motel

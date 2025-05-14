@@ -1,0 +1,21 @@
+Dentista
+Clínica dental
+Odontopediatra
+Dentista infantil
+Ortodoncista
+Endodoncista
+Periodoncista
+Cirujano oral y maxilofacial
+Cirujano maxilofacial
+Implantólogo dental
+Proveedor de implantes dentales
+Dentista cosmético
+Estética dental
+Servicio de urgencias dentales
+Higienista dental
+Protésico dental
+Mecánico protésico dental
+Laboratorio dental
+Radiología odontológica 
+Centro de diagnóstico por imagen dental
+Facultad de odontología
