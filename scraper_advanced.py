@@ -142,14 +142,14 @@ def submit_job(api_url, payload):
         return None
 
 def main():
-    print("===== GOOGLE MAPS SCRAPER AVANZADO =====")
+    print("===== GOOGLE MAPS SCRAPER (AVANZADO) =====")
     
-    # Configuración de la API
-    api_host = input("Introduce la dirección del servidor API (por defecto: http://localhost:8000): ")
-    if not api_host:
-        api_host = "http://localhost:8000"
+    # Obtener la dirección del servidor
+    host = input("\nIntroduce la dirección del servidor (por defecto http://localhost:8080): ").strip()
+    if not host:
+        host = "http://localhost:8080"
     
-    api_url = f"{api_host}/api/v1/jobs"
+    api_url = f"{host}/api/v1/jobs"
     
     name = input("Introduce un nombre para este trabajo: ")
     if not name:

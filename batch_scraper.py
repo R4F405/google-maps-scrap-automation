@@ -111,7 +111,7 @@ def wait_for_job_completion(job_id, api_url, max_wait_time=30, check_interval=10
 def get_args():
     """Analiza los argumentos de línea de comandos"""
     parser = argparse.ArgumentParser(description='Google Maps Batch Scraper')
-    parser.add_argument('--host', default='http://localhost:8000', help='API host URL')
+    parser.add_argument('--host', default='http://localhost:8080', help='API host URL')
     parser.add_argument('--categories', type=str, help='Índices de categorías separados por comas (ej: "1,2,3")')
     parser.add_argument('--locations', type=str, help='Índices de localizaciones separados por comas (ej: "1,2")')
     parser.add_argument('--keywords', type=str, default='all', help='Keywords específicos o "all" para todos')

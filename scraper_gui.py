@@ -87,7 +87,7 @@ class GoogleMapsScraper(tk.Tk):
         self.configure(bg="#f0f0f0")
         
         # Variables para almacenar selecciones
-        self.host_var = tk.StringVar(value="http://localhost:8000")
+        self.host_var = tk.StringVar(value="http://localhost:8080")
         self.job_name_var = tk.StringVar(value=f"Trabajo_{datetime.now().strftime('%Y%m%d_%H%M%S')}")
         self.radius_var = tk.IntVar(value=10000)
         self.depth_var = tk.IntVar(value=10)

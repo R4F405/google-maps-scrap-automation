@@ -2,13 +2,19 @@
 
 Scripts para automatizar la recolección de datos de Google Maps mediante una API de scraping.
 
+> **IMPORTANTE**: Este proyecto utiliza la API de [google-maps-scraper](https://github.com/gosom/google-maps-scraper.git). Para tener la API funcionando correctamente, debes descargar la versión **v1.8.0** desde [releases](https://github.com/gosom/google-maps-scraper/releases) e instalarla. Una vez instalada y ejecutada, la API estará disponible en el puerto **8080** .
+
+## Agradecimientos y créditos
+
+Este proyecto es una interfaz para facilitar el uso de [google-maps-scraper](https://github.com/gosom/google-maps-scraper.git) creado por [@gosom](https://github.com/gosom). Todos los créditos del motor de scraping pertenecen a los creadores originales. Nuestro trabajo se limita a crear una interfaz amigable para su uso.
+
 ## Guía rápida (para empezar rápidamente)
 
 Estos scripts te permiten extraer datos de Google Maps de forma automática. Para utilizarlos, necesitas:
 
 1. Tener Python instalado (versión 3.6 o superior)
 2. Instalar las dependencias con: `pip install requests tkinter`
-3. Tener la API de scraping funcionando en tu equipo local u otro servidor
+3. Tener la API de scraping funcionando en tu equipo local (puerto 8080) u otro servidor
 
 ### Modo más fácil (Launcher Gráfico):
 
@@ -41,7 +47,7 @@ python scraper_advanced.py
 ```
 
 **Ejemplo de uso:**
-1. Introduce la dirección del servidor (por defecto http://localhost:8000)
+1. Introduce la dirección del servidor (por defecto http://localhost:8080)
 2. Ingresa un nombre como "Busqueda-Abogados-Gandia"
 3. Selecciona una categoría (por ejemplo: 1 para abogados)
 4. Para seleccionar varios keywords, escribe "1,3,5" o "all" para todos
@@ -170,7 +176,7 @@ python batch_scraper.py [opciones]
 #### Opciones:
 
 ```
---host TEXT               API host URL (por defecto: http://localhost:8000)
+--host TEXT               API host URL (por defecto: http://localhost:8080)
 --categories TEXT         Índices de categorías a procesar separados por comas (ej: "1,2,3")
 --locations TEXT          Índices de localidades a procesar separados por comas (ej: "1,2")
 --keywords TEXT           Palabras clave específicas o "all" para todas (por defecto: all)
@@ -216,6 +222,7 @@ Cada archivo contiene tres líneas:
 
 - Python 3.6 o superior
 - Módulos: requests, tkinter (incluido en la mayoría de instalaciones de Python)
+- API de [google-maps-scraper](https://github.com/gosom/google-maps-scraper.git) v1.8.0 instalada y ejecutándose en el puerto 8080
 
 Instalar dependencias:
 ```bash
