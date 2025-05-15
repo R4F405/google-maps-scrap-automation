@@ -152,8 +152,16 @@ class GoogleMapsScraper(tk.Tk):
         ttk.Entry(frame, textvariable=self.wait_time_var, width=10).grid(row=5, column=1, sticky=tk.W, padx=5, pady=5)
     
     def setup_categories_tab(self, parent):
+        # Frame principal que contiene todo
+        main_frame = ttk.Frame(parent)
+        main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Frame izquierdo para categorías existentes
+        left_frame = ttk.Frame(main_frame)
+        left_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        
         # Frame para seleccionar categorías
-        categories_frame = ttk.LabelFrame(parent, text="Categorías Disponibles")
+        categories_frame = ttk.LabelFrame(left_frame, text="Categorías Disponibles")
         categories_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
         
         # Lista de categorías con checkbuttons
@@ -191,7 +199,7 @@ class GoogleMapsScraper(tk.Tk):
         scrollbar.pack(side="right", fill="y")
         
         # Frame para mostrar keywords de la categoría seleccionada
-        keywords_frame = ttk.LabelFrame(parent, text="Keywords Disponibles")
+        keywords_frame = ttk.LabelFrame(left_frame, text="Keywords Disponibles")
         keywords_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
         
         # Lista de keywords
@@ -204,15 +212,56 @@ class GoogleMapsScraper(tk.Tk):
         self.keywords_listbox.configure(yscrollcommand=keywords_scrollbar.set)
         
         # Botones para seleccionar todos/ninguno
-        button_frame = ttk.Frame(parent)
+        button_frame = ttk.Frame(left_frame)
         button_frame.pack(fill=tk.X, padx=10, pady=5)
         
         ttk.Button(button_frame, text="Seleccionar Todas", command=self.select_all_categories).pack(side=tk.LEFT, padx=5)
         ttk.Button(button_frame, text="Deseleccionar Todas", command=self.deselect_all_categories).pack(side=tk.LEFT, padx=5)
+        
+        # Frame derecho para agregar nuevas categorías y keywords
+        right_frame = ttk.Frame(main_frame)
+        right_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=10)
+        
+        # Frame para agregar nueva categoría
+        add_category_frame = ttk.LabelFrame(right_frame, text="Agregar Nueva Categoría")
+        add_category_frame.pack(fill=tk.X, expand=False, pady=10)
+        
+        ttk.Label(add_category_frame, text="Nombre de la categoría:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        self.new_category_var = tk.StringVar()
+        ttk.Entry(add_category_frame, textvariable=self.new_category_var, width=30).grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        
+        ttk.Button(add_category_frame, text="Crear Categoría", command=self.create_new_category).grid(row=1, column=0, columnspan=2, pady=10)
+        
+        # Frame para agregar keywords a una categoría existente
+        add_keywords_frame = ttk.LabelFrame(right_frame, text="Agregar Keywords a Categoría")
+        add_keywords_frame.pack(fill=tk.BOTH, expand=True, pady=10)
+        
+        ttk.Label(add_keywords_frame, text="Seleccionar categoría:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        
+        # Combobox para seleccionar categoría
+        self.category_combo = ttk.Combobox(add_keywords_frame, width=30)
+        self.category_combo.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        self.update_category_combo()
+        
+        ttk.Label(add_keywords_frame, text="Keywords (uno por línea):").grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+        
+        # Text area para keywords
+        self.new_keywords_text = scrolledtext.ScrolledText(add_keywords_frame, height=10, width=30)
+        self.new_keywords_text.grid(row=2, column=0, columnspan=2, sticky=tk.NSEW, padx=5, pady=5)
+        
+        ttk.Button(add_keywords_frame, text="Agregar Keywords", command=self.add_keywords_to_category).grid(row=3, column=0, columnspan=2, pady=10)
     
     def setup_locations_tab(self, parent):
+        # Frame principal que contiene todo
+        main_frame = ttk.Frame(parent)
+        main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Frame izquierdo para localizaciones existentes
+        left_frame = ttk.Frame(main_frame)
+        left_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        
         # Frame para seleccionar localizaciones
-        locations_frame = ttk.LabelFrame(parent, text="Localizaciones Disponibles")
+        locations_frame = ttk.LabelFrame(left_frame, text="Localizaciones Disponibles")
         locations_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
         
         # Lista de localizaciones con checkbuttons
@@ -232,7 +281,7 @@ class GoogleMapsScraper(tk.Tk):
             ).grid(row=i, column=0, sticky=tk.W, padx=5, pady=5)
         
         # Información de la localización seleccionada
-        info_frame = ttk.LabelFrame(parent, text="Información de Localización")
+        info_frame = ttk.LabelFrame(left_frame, text="Información de Localización")
         info_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
         
         self.location_info_text = scrolledtext.ScrolledText(info_frame, height=10, wrap=tk.WORD)
@@ -240,8 +289,53 @@ class GoogleMapsScraper(tk.Tk):
         self.location_info_text.config(state=tk.DISABLED)
         
         # Botón para mostrar información de localizaciones seleccionadas
-        ttk.Button(parent, text="Ver Información de Localizaciones Seleccionadas", 
+        ttk.Button(left_frame, text="Ver Información de Localizaciones Seleccionadas", 
                   command=self.show_location_info).pack(pady=10)
+        
+        # Frame derecho para agregar nuevas localizaciones
+        right_frame = ttk.Frame(main_frame)
+        right_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=10)
+        
+        # Frame para agregar nueva localización
+        add_location_frame = ttk.LabelFrame(right_frame, text="Agregar Nueva Localización")
+        add_location_frame.pack(fill=tk.BOTH, expand=True, pady=10)
+        
+        ttk.Label(add_location_frame, text="Nombre de la localización:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        self.new_location_var = tk.StringVar()
+        ttk.Entry(add_location_frame, textvariable=self.new_location_var, width=30).grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        
+        ttk.Label(add_location_frame, text="Zoom (1-20):").grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+        self.new_zoom_var = tk.IntVar(value=12)
+        ttk.Spinbox(add_location_frame, from_=1, to=20, textvariable=self.new_zoom_var, width=5).grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
+        
+        ttk.Label(add_location_frame, text="Latitud:").grid(row=2, column=0, sticky=tk.W, padx=5, pady=5)
+        self.new_lat_var = tk.StringVar()
+        ttk.Entry(add_location_frame, textvariable=self.new_lat_var, width=30).grid(row=2, column=1, sticky=tk.W, padx=5, pady=5)
+        
+        ttk.Label(add_location_frame, text="Longitud:").grid(row=3, column=0, sticky=tk.W, padx=5, pady=5)
+        self.new_lon_var = tk.StringVar()
+        ttk.Entry(add_location_frame, textvariable=self.new_lon_var, width=30).grid(row=3, column=1, sticky=tk.W, padx=5, pady=5)
+        
+        # Ejemplos de coordenadas para mayor facilidad
+        examples_frame = ttk.LabelFrame(add_location_frame, text="Ejemplos de Coordenadas")
+        examples_frame.grid(row=4, column=0, columnspan=2, sticky=tk.EW, padx=5, pady=10)
+        
+        examples_text = "Madrid: 40.4167754, -3.7037902\n"
+        examples_text += "Barcelona: 41.3850639, 2.1734035\n"
+        examples_text += "Valencia: 39.4699075, -0.3762881\n"
+        examples_text += "Sevilla: 37.3890924, -5.9844589"
+        
+        examples_label = ttk.Label(examples_frame, text=examples_text, justify=tk.LEFT)
+        examples_label.pack(padx=5, pady=5)
+        
+        ttk.Button(add_location_frame, text="Agregar Localización", command=self.create_new_location).grid(row=5, column=0, columnspan=2, pady=10)
+        
+        # Botón para ayuda con coordenadas
+        ttk.Button(
+            add_location_frame, 
+            text="Abrir Mapa para Obtener Coordenadas", 
+            command=lambda: self.open_map_website()
+        ).grid(row=6, column=0, columnspan=2, pady=5)
     
     def setup_execution_tab(self, parent):
         # Frame para mostrar configuración del trabajo
@@ -530,6 +624,245 @@ class GoogleMapsScraper(tk.Tk):
             self.running = False
             self.log("Cancelando ejecución...")
             # No cancelamos inmediatamente el trabajo actual, solo evitamos que se procesen más
+    
+    # Funciones para gestionar nuevas categorías y keywords
+    def update_category_combo(self):
+        """Actualiza el combobox de categorías"""
+        self.category_combo['values'] = self.category_names
+        if self.category_names:
+            self.category_combo.current(0)
+    
+    def create_new_category(self):
+        """Crea una nueva categoría de keywords"""
+        category_name = self.new_category_var.get().strip()
+        
+        if not category_name:
+            messagebox.showerror("Error", "El nombre de la categoría no puede estar vacío")
+            return
+        
+        # Validar que no exista ya
+        if category_name in self.category_names:
+            messagebox.showerror("Error", f"La categoría '{category_name}' ya existe")
+            return
+        
+        try:
+            # Encontrar el próximo número para el prefijo
+            next_num = len(self.keyword_files) + 1
+            
+            # Crear archivo de keywords
+            filename = f"{next_num}_keywords_{category_name}.txt"
+            filepath = os.path.join('keywords', filename)
+            
+            # Crear directorio si no existe
+            os.makedirs('keywords', exist_ok=True)
+            
+            # Crear archivo vacío
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write("")
+            
+            # Actualizar lista de archivos
+            self.keyword_files = get_keyword_files()
+            
+            # Actualizar categorías
+            self.category_names.append(category_name)
+            var = tk.BooleanVar()
+            self.category_vars.append(var)
+            
+            # Buscar el notebook y la pestaña actual
+            for widget in self.winfo_children():
+                if isinstance(widget, ttk.Notebook):
+                    categories_tab = widget.winfo_children()[1]  # índice 1 es la pestaña de categorías
+                    # Buscar el frame principal
+                    for child in categories_tab.winfo_children():
+                        if isinstance(child, ttk.Frame):  # Frame principal
+                            # Buscar el frame izquierdo
+                            for left_frame in child.winfo_children():
+                                if left_frame.winfo_children():  # El primer hijo del frame principal debería ser el izquierdo
+                                    # Buscar el frame de categorías
+                                    for cat_frame in left_frame.winfo_children():
+                                        if isinstance(cat_frame, ttk.LabelFrame) and "Categorías Disponibles" in cat_frame['text']:
+                                            # Buscar el canvas
+                                            for canvas_obj in cat_frame.winfo_children():
+                                                if isinstance(canvas_obj, tk.Canvas):
+                                                    # Obtener el frame scrollable
+                                                    scrollable_frame = canvas_obj.children["!frame"]
+                                                    # Añadir nuevo checkbutton
+                                                    i = len(self.category_names) - 1
+                                                    ttk.Checkbutton(
+                                                        scrollable_frame, 
+                                                        text=f"{i+1}. {category_name}", 
+                                                        variable=var,
+                                                        command=self.update_keywords_list
+                                                    ).grid(row=i, column=0, sticky=tk.W, padx=5, pady=2)
+                                                    break
+                                            break
+                                    break
+                            break
+                    break
+            
+            # Actualizar combobox
+            self.update_category_combo()
+            
+            # Limpiar campo
+            self.new_category_var.set("")
+            
+            # Mostrar mensaje
+            messagebox.showinfo("Éxito", f"Categoría '{category_name}' creada correctamente")
+            
+        except Exception as e:
+            messagebox.showerror("Error", f"Error al crear la categoría: {str(e)}")
+    
+    def add_keywords_to_category(self):
+        """Agrega keywords a una categoría existente"""
+        category_idx = self.category_combo.current()
+        
+        if category_idx < 0 or category_idx >= len(self.category_names):
+            messagebox.showerror("Error", "Selecciona una categoría válida")
+            return
+        
+        keywords_text = self.new_keywords_text.get(1.0, tk.END).strip()
+        if not keywords_text:
+            messagebox.showerror("Error", "Debes ingresar al menos un keyword")
+            return
+        
+        # Dividir por líneas y eliminar líneas vacías
+        keywords = [kw.strip() for kw in keywords_text.split('\n') if kw.strip()]
+        
+        try:
+            # Obtener archivo de la categoría
+            category_file = self.keyword_files[category_idx]
+            filepath = os.path.join('keywords', category_file)
+            
+            # Leer keywords existentes
+            existing_keywords = []
+            if os.path.exists(filepath):
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    existing_keywords = [line.strip() for line in f.readlines()]
+            
+            # Agregar nuevos keywords (evitando duplicados)
+            new_keywords = []
+            duplicates = []
+            
+            for kw in keywords:
+                if kw in existing_keywords:
+                    duplicates.append(kw)
+                else:
+                    new_keywords.append(kw)
+                    existing_keywords.append(kw)
+            
+            # Guardar keywords actualizados
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write('\n'.join(existing_keywords))
+            
+            # Mostrar resultado
+            if new_keywords:
+                messagebox.showinfo(
+                    "Keywords Agregados", 
+                    f"Se agregaron {len(new_keywords)} keywords a la categoría '{self.category_names[category_idx]}'"
+                )
+                self.new_keywords_text.delete(1.0, tk.END)
+                
+                # Actualizar la lista de keywords si la categoría está seleccionada
+                if self.category_vars[category_idx].get():
+                    self.update_keywords_list()
+            else:
+                messagebox.showinfo(
+                    "Sin Cambios", 
+                    f"Todos los keywords ya existían en la categoría '{self.category_names[category_idx]}'"
+                )
+        
+        except Exception as e:
+            messagebox.showerror("Error", f"Error al agregar keywords: {str(e)}")
+    
+    def create_new_location(self):
+        """Crea una nueva localización"""
+        location_name = self.new_location_var.get().strip()
+        zoom = self.new_zoom_var.get()
+        lat = self.new_lat_var.get().strip()
+        lon = self.new_lon_var.get().strip()
+        
+        # Validar datos
+        if not location_name:
+            messagebox.showerror("Error", "El nombre de la localización no puede estar vacío")
+            return
+        
+        if location_name in self.location_names:
+            messagebox.showerror("Error", f"La localización '{location_name}' ya existe")
+            return
+        
+        if not lat or not lon:
+            messagebox.showerror("Error", "La latitud y longitud son obligatorias")
+            return
+        
+        try:
+            # Validar formato de lat/lon
+            float(lat)
+            float(lon)
+            
+            # Encontrar el próximo número para el prefijo
+            next_num = len(self.location_files) + 1
+            
+            # Crear archivo de localización
+            filename = f"{next_num}_location_{location_name}.txt"
+            filepath = os.path.join('location', filename)
+            
+            # Crear directorio si no existe
+            os.makedirs('location', exist_ok=True)
+            
+            # Crear archivo con los datos
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(f"{zoom}\n{lat}\n{lon}")
+            
+            # Actualizar lista de archivos
+            self.location_files = get_location_files()
+            
+            # Actualizar lista de localizaciones en memoria
+            self.location_names.append(location_name)
+            var = tk.BooleanVar()
+            self.location_vars.append(var)
+            
+            # Buscar el notebook y la pestaña de localizaciones
+            for widget in self.winfo_children():
+                if isinstance(widget, ttk.Notebook):
+                    locations_tab = widget.winfo_children()[2]  # índice 2 es la pestaña de localizaciones
+                    # Buscar el frame principal
+                    for child in locations_tab.winfo_children():
+                        if isinstance(child, ttk.Frame):  # Frame principal
+                            # Buscar el frame izquierdo
+                            for left_frame in child.winfo_children():
+                                if left_frame.winfo_children():  # El primer hijo del frame principal debería ser el izquierdo
+                                    # Buscar el frame de localizaciones
+                                    for loc_frame in left_frame.winfo_children():
+                                        if isinstance(loc_frame, ttk.LabelFrame) and "Localizaciones Disponibles" in loc_frame['text']:
+                                            # Añadir nuevo checkbutton
+                                            i = len(self.location_names) - 1
+                                            ttk.Checkbutton(
+                                                loc_frame, 
+                                                text=f"{i+1}. {location_name}", 
+                                                variable=var
+                                            ).grid(row=i, column=0, sticky=tk.W, padx=5, pady=5)
+                                            break
+                                    break
+                            break
+                    break
+            
+            # Actualizar interfaz
+            messagebox.showinfo("Éxito", f"Localización '{location_name}' creada correctamente")
+            
+            # Limpiar campos
+            self.new_location_var.set("")
+            self.new_lat_var.set("")
+            self.new_lon_var.set("")
+            
+        except ValueError:
+            messagebox.showerror("Error", "La latitud y longitud deben ser números")
+        except Exception as e:
+            messagebox.showerror("Error", f"Error al crear la localización: {str(e)}")
+    
+    def open_map_website(self):
+        """Abre un sitio web para obtener coordenadas"""
+        import webbrowser
+        webbrowser.open("https://www.latlong.net/")
 
 if __name__ == "__main__":
     app = GoogleMapsScraper()
