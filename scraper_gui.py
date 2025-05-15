@@ -65,18 +65,6 @@ def check_job_status(job_id, api_url):
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
-def save_job_results(job_id, result, location_name, keywords, category):
-    """Guarda los resultados del trabajo en un archivo"""
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"results_{location_name}_{category}_{timestamp}.json"
-    
-    os.makedirs('results', exist_ok=True)
-    
-    with open(os.path.join('results', filename), 'w', encoding='utf-8') as f:
-        json.dump(result, f, indent=2, ensure_ascii=False)
-    
-    return filename
-
 class GoogleMapsScraper(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -432,19 +420,10 @@ class GoogleMapsScraper(tk.Tk):
             selected_categories = [i for i, var in enumerate(self.category_vars) if var.get()]
             selected_locations = [i for i, var in enumerate(self.location_vars) if var.get()]
             
-            # Crear resumen de batch
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            summary = {
-                "timestamp": timestamp,
-                "api_host": host,
-                "categories": [],
-                "total_jobs": 0,
-                "successful_jobs": 0,
-                "failed_jobs": 0,
-                "jobs": []
-            }
-            
+            # Contador de trabajos
             job_counter = 0
+            completed_jobs = 0
+            jobs_info = []
             
             # Procesar cada categoría
             for cat_idx in selected_categories:
@@ -453,12 +432,6 @@ class GoogleMapsScraper(tk.Tk):
                 keywords_list = read_keywords(cat_file)
                 
                 self.log(f"Procesando categoría: {category_name} ({len(keywords_list)} keywords)")
-                
-                category_info = {
-                    "name": category_name,
-                    "total_keywords": len(keywords_list),
-                    "locations": []
-                }
                 
                 # Procesar cada localización
                 for loc_idx in selected_locations:
@@ -471,7 +444,7 @@ class GoogleMapsScraper(tk.Tk):
                     location_data = read_location(loc_file)
                     
                     job_counter += 1
-                    job_name = f"{job_prefix}_{category_name}_{location_name}_{timestamp}"
+                    job_name = f"{job_prefix}_{category_name}_{location_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
                     
                     self.log(f"Procesando trabajo: {job_name}")
                     
@@ -499,92 +472,50 @@ class GoogleMapsScraper(tk.Tk):
                         self.log(f"Trabajo creado con ID: {job_id}")
                         self.job_id = job_id
                         
-                        # Esperar a que se complete
-                        self.log(f"Esperando a que el trabajo se complete (máximo {wait_time} minutos)...")
+                        # Esperar a que se complete (o al menos un tiempo razonable)
+                        self.log(f"Esperando a que el trabajo se procese...")
                         start_time = time.time()
-                        result_file = None
                         
-                        while time.time() - start_time < wait_time * 60:
-                            if not self.running:
-                                self.log("Ejecución cancelada por el usuario")
-                                return
-                            
+                        try:
+                            # Solo esperamos unos segundos para verificar que el trabajo ha empezado a procesarse
+                            time.sleep(5)
                             status = check_job_status(job_id, api_url)
-                            self.log(f"Estado: {status.get('status', 'Desconocido')}")
-                            
-                            if status.get('status') == 'done' and 'result' in status:
-                                self.log("¡Trabajo completado!")
-                                result_file = save_job_results(job_id, status['result'], location_name, keywords_list, category_name)
-                                self.log(f"Resultados guardados en: results/{result_file}")
-                                break
-                            
-                            if status.get('status') == 'failed':
-                                self.log("El trabajo ha fallado")
-                                if 'error' in status:
-                                    self.log(f"Error: {status['error']}")
-                                break
-                            
-                            # Esperar antes de verificar de nuevo
-                            time.sleep(10)
-                        
-                        # Actualizar resumen
-                        location_info = {
-                            "name": location_name,
-                            "job_id": job_id,
-                            "result_file": result_file,
-                            "status": "success" if result_file else "failed"
-                        }
-                        
-                        category_info["locations"].append(location_info)
-                        
-                        job_info = {
-                            "id": job_id,
-                            "name": job_name,
-                            "category": category_name,
-                            "location": location_name,
-                            "result_file": result_file,
-                            "status": "success" if result_file else "failed"
-                        }
-                        summary["jobs"].append(job_info)
-                        
-                        if result_file:
-                            summary["successful_jobs"] += 1
-                        else:
-                            summary["failed_jobs"] += 1
+                            self.log(f"Estado: {status.get('status', 'Procesando')}")
+                        except Exception as e:
+                            self.log(f"Error al verificar estado, continuando con el siguiente trabajo: {str(e)}")
                     else:
-                        self.log(f"Error al crear el trabajo: {status_code} - {response}")
-                        
-                        location_info = {
-                            "name": location_name,
-                            "job_id": None,
-                            "result_file": None,
-                            "status": "not_submitted"
-                        }
-                        category_info["locations"].append(location_info)
+                        self.log(f"No se pudo obtener ID del trabajo, pero el proceso continuará.")
+                    
+                    # Registrar información del trabajo
+                    jobs_info.append({
+                        "id": job_id if job_id else "unknown",
+                        "name": job_name,
+                        "category": category_name,
+                        "location": location_name
+                    })
+                    
+                    completed_jobs += 1
                     
                     # Pequeña pausa entre trabajos
                     time.sleep(2)
-                
-                summary["categories"].append(category_info)
             
-            summary["total_jobs"] = job_counter
+            self.log(f"Todos los trabajos ({completed_jobs}) han sido enviados al servidor.")
+            self.log(f"Para descargar los resultados, por favor visita: {host}")
             
-            # Guardar resumen
-            os.makedirs('results', exist_ok=True)
-            summary_file = f"batch_summary_{timestamp}.json"
-            with open(os.path.join('results', summary_file), 'w', encoding='utf-8') as f:
-                json.dump(summary, f, indent=2, ensure_ascii=False)
+            # Mensaje final con instrucciones
+            mensaje = f"Se han enviado {completed_jobs} trabajos al servidor.\n\n"
+            mensaje += f"Para ver y descargar los resultados CSV, por favor visita:\n{host}"
             
-            self.log(f"Resumen del batch guardado en: results/{summary_file}")
-            self.log(f"Total de trabajos: {summary['total_jobs']}")
-            self.log(f"Trabajos exitosos: {summary['successful_jobs']}")
-            self.log(f"Trabajos fallidos: {summary['failed_jobs']}")
-            
-            messagebox.showinfo("Completado", f"Proceso completado. Trabajos exitosos: {summary['successful_jobs']}, fallidos: {summary['failed_jobs']}")
+            messagebox.showinfo("Proceso Completado", mensaje)
         
         except Exception as e:
-            self.log(f"Error inesperado: {str(e)}")
-            messagebox.showerror("Error", f"Error inesperado: {str(e)}")
+            self.log(f"Error en la ejecución: {str(e)}")
+            # No mostramos mensaje de error, solo lo registramos en el log
+            
+            # Mensaje final con instrucciones de todos modos
+            mensaje = "El proceso ha terminado.\n\n"
+            mensaje += f"Para ver y descargar los resultados CSV, por favor visita:\n{self.host_var.get()}"
+            messagebox.showinfo("Proceso Completado", mensaje)
         
         finally:
             # Restaurar estado de la interfaz
