@@ -8,9 +8,9 @@ Google Maps Scraper UI es una interfaz gráfica que facilita el uso del [Google 
 ### Pasos previos
 
 1. **Iniciar Google Maps Scraper API**
-   - Ejecuta el Google Maps Scraper descargado de [GitHub](https://github.com/gosom/google-maps-scraper/releases/tag/v1.8.0)
-   - Cuando lo ejecutes, se abrirá una ventana de línea de comandos (CMD)
-   - La API se iniciará en un puerto local (generalmente `localhost:8080`)
+   - Ejecuta el archivo `.exe` que se encuentra dentro de la carpeta `API`
+   - Se abrirá una ventana de línea de comandos (CMD) y la API se iniciará automáticamente
+   - La API estará disponible en `http://localhost:8080` (o el puerto indicado en la CMD)
    - **IMPORTANTE**: No cierres la ventana de CMD durante todo el proceso. Debe permanecer abierta para que la API funcione.
 
 2. **Verificar que la API está funcionando**
@@ -71,7 +71,16 @@ Google Maps Scraper UI es una interfaz gráfica que facilita el uso del [Google 
 
 ## Instalación
 
-### 1. Instalar Google Maps Scraper
+### 1. Instalar Google Maps Scraper API
+
+#### Opción 1: Usar el ejecutable incluido (recomendado)
+1. El archivo ejecutable de Google Maps Scraper ya está incluido en la carpeta `API` de este repositorio
+2. Simplemente ejecuta el archivo `.exe` dentro de esa carpeta para iniciar la API
+3. Se abrirá una ventana de línea de comandos (CMD) y la API se iniciará automáticamente
+4. No es necesario realizar ninguna otra configuración
+
+#### Opción 2: Descargar la última versión (si necesitas actualizar)
+Si prefieres descargar la versión más reciente o el ejecutable incluido no funciona:
 
 1. Descarga la última versión de Google Maps Scraper desde [GitHub](https://github.com/gosom/google-maps-scraper/releases/tag/v1.8.0)
 2. Descomprime el archivo descargado en una carpeta de tu elección
@@ -80,11 +89,12 @@ Google Maps Scraper UI es una interfaz gráfica que facilita el uso del [Google 
    - En macOS/Linux: Usa el comando `./google-maps-scraper`
 4. Se abrirá una ventana de línea de comandos y la API se iniciará automáticamente
 5. La API estará disponible en `http://localhost:8080` (o el puerto indicado en la CMD)
-6. **IMPORTANTE**: Mantén esta ventana abierta durante todo el proceso
+
+**IMPORTANTE**: Mantén la ventana de CMD abierta durante todo el proceso.
 
 ### 2. Instalar Google Maps Scraper UI
 
-1. Descarga los archivos de este repositorio
+1. Descarga los archivos de este repositorio (o utiliza los que ya tienes)
 2. Asegúrate de tener Python 3.6 o superior instalado
 3. Instala las dependencias necesarias:
    ```
@@ -104,6 +114,7 @@ Google Maps Scraper UI es una interfaz gráfica que facilita el uso del [Google 
 - `scraper_gui.py`: El archivo principal que contiene la interfaz gráfica
 - `keywords/`: Carpeta que contiene archivos de texto con palabras clave por categoría
 - `location/`: Carpeta que contiene archivos de texto con información de ubicaciones
+- `API/`: Carpeta que contiene el ejecutable de Google Maps Scraper
 
 ## Ejemplos de uso comunes
 
