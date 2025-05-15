@@ -550,7 +550,7 @@ class GoogleMapsScraper(tk.Tk):
                         "zoom": location_data['zoom'],
                         "lat": location_data['lat'],
                         "lon": location_data['lon'],
-                        "fast_mode": True,
+                        "fast_mode": False, #True = No emails
                         "radius": radius,
                         "depth": depth,
                         "email": True,

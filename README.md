@@ -63,6 +63,8 @@ Google Maps Scraper UI es una interfaz gráfica que facilita el uso del [Google 
    - Puedes cancelar la ejecución en cualquier momento con el botón "Cancelar"
    - Al finalizar, se te informará del número total de trabajos completados
 
+   **No ejecutar otro mas hasta que salga en la pantalla scraper_gui que el el actual trabajo ya se ha enviado a la API correctamente**
+
 7. **Descargar resultados**
    - **IMPORTANTE**: La CMD del Google Maps Scraper debe seguir abierta
    - **Ficheros CSV**: Se guardan en (`API/webdata`), estos csv guardan el contenido de cada uno de los Trabajos. 
