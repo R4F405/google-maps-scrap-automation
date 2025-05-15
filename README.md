@@ -201,7 +201,3 @@ Agradecemos a:
 ## Notas legales
 
 Este software se proporciona "tal cual", sin garantía de ningún tipo. Utiliza esta herramienta de acuerdo con los términos de servicio de Google y las leyes aplicables en tu jurisdicción. El scraping de datos puede estar sujeto a restricciones legales en algunos casos.
-
----
-
-**NOTA**: Necesitarás reemplazar `config_tab.png`, `categories_tab.png`, `locations_tab.png`, y `execution_tab.png` con capturas de pantalla reales de tu aplicación para proporcionar una guía visual.
