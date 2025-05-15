@@ -1,255 +1,194 @@
-# Google Maps Scraper
+# Google Maps Scraper UI
 
-Scripts para automatizar la recolección de datos de Google Maps mediante una API de scraping.
+## Descripción
+Google Maps Scraper UI es una interfaz gráfica que facilita el uso del [Google Maps Scraper](https://github.com/gosom/google-maps-scraper) para extraer datos de negocios desde Google Maps. Esta herramienta permite seleccionar categorías de negocios y localizaciones, configurar parámetros de búsqueda y gestionar los trabajos de extracción de datos de forma visual e intuitiva, sin necesidad de usar la línea de comandos.
 
-> **IMPORTANTE**: Este proyecto utiliza la API de [google-maps-scraper](https://github.com/gosom/google-maps-scraper.git). Para tener la API funcionando correctamente, debes descargar la versión **v1.8.0** desde [releases](https://github.com/gosom/google-maps-scraper/releases) e instalarla. Una vez instalada y ejecutada, la API estará disponible en el puerto **8080** .
+## Cómo Usar
 
-## Agradecimientos y créditos
+### Pasos previos
 
-Este proyecto es una interfaz para facilitar el uso de [google-maps-scraper](https://github.com/gosom/google-maps-scraper.git) creado por [@gosom](https://github.com/gosom). Todos los créditos del motor de scraping pertenecen a los creadores originales. Nuestro trabajo se limita a crear una interfaz amigable para su uso.
+1. **Iniciar Google Maps Scraper API**
+   - Ejecuta el Google Maps Scraper descargado de [GitHub](https://github.com/gosom/google-maps-scraper/releases/tag/v1.8.0)
+   - Cuando lo ejecutes, se abrirá una ventana de línea de comandos (CMD)
+   - La API se iniciará en un puerto local (generalmente `localhost:8080`)
+   - **IMPORTANTE**: No cierres la ventana de CMD durante todo el proceso. Debe permanecer abierta para que la API funcione.
 
-## Guía rápida (para empezar rápidamente)
+2. **Verificar que la API está funcionando**
+   - Abre tu navegador y visita la dirección que aparece en la línea de comandos (ej: `http://localhost:8080`)
+   - Deberías ver la interfaz web del Google Maps Scraper
+   - **NOTA**: No es necesario modificar ninguna configuración desde esta interfaz web. Toda la configuración se hará desde nuestra aplicación.
 
-Estos scripts te permiten extraer datos de Google Maps de forma automática. Para utilizarlos, necesitas:
+### Usando Google Maps Scraper UI
 
-1. Tener Python instalado (versión 3.6 o superior)
-2. Instalar las dependencias con: `pip install requests tkinter`
-3. Tener la API de scraping funcionando en tu equipo local (puerto 8080) u otro servidor
+1. **Iniciar la aplicación**
+> Se recomienda utlizar pantalla completa
 
-### Modo más fácil (Launcher Gráfico):
+     - Ejecuta `scraper_gui.py`
+     - Se abrirá la interfaz gráfica con varias pestañas
 
-```bash
-python scraper_launcher.py
-```
+2. **Configuración General (Pestaña "Configuración")**
+   ![Configuración Tab](images/config_tab.png)
+   - **Host API**: Mantén el valor predeterminado (`http://localhost:8080`) o ajústalo si la API se ejecuta en otro puerto
+   - **Nombre del trabajo**: Introduce un nombre descriptivo para tu trabajo de extracción
+   - **Radio (metros)**: Define el radio de búsqueda alrededor de cada ubicación (ej: 10000 para 10km)
+   - **Profundidad**: Define cuántos resultados quieres extraer (valores más altos = más resultados)
+   - **Tiempo máximo (minutos)**: Límite de tiempo para cada trabajo
+   - **Tiempo de espera (minutos)**: Tiempo máximo de espera para que finalice un trabajo
 
-**Este launcher te permite elegir entre las diferentes opciones disponibles:**
-- Scraper Simple
-- Batch Scraper
-- Interfaz Gráfica (GUI)
+3. **Seleccionar Categorías y Keywords (Pestaña "Categorías y Keywords")**
+   ![Categorías Tab](images/categories_tab.png)
+   - Marca las casillas de las categorías de negocios que quieres buscar
+   - Puedes usar los botones "Seleccionar Todas" o "Deseleccionar Todas"
+   - La lista de keywords asociados a las categorías seleccionadas aparecerá en el área de la derecha
+   - **Agregar nueva categoría**: Puedes crear nuevas categorías con el formulario de la derecha
+   - **Agregar keywords a categoría**: Puedes añadir keywords a una categoría existente
 
-### Uso rápido del script básico:
+4. **Seleccionar Localizaciones (Pestaña "Localizaciones")**
+   ![Localizaciones Tab](images/locations_tab.png)
+   - Marca las casillas de las ubicaciones donde quieres buscar
+   - Puedes ver la información detallada de las ubicaciones seleccionadas haciendo clic en "Ver Información de Localizaciones Seleccionadas"
+   - **Agregar nueva localización**: Puedes añadir nuevas ubicaciones con el formulario de la derecha
+   - Si necesitas coordenadas, usa el botón "Abrir Mapa para Obtener Coordenadas"
 
-```bash
-python scraper.py
-```
+5. **Resumen y Ejecución (Pestaña "Ejecución")**
+   ![Ejecución Tab](images/execution_tab.png)
+   - Haz clic en "Actualizar Resumen" para ver un resumen del trabajo que vas a ejecutar
+   - Revisa todos los parámetros configurados
+   - Cuando estés listo, haz clic en "Ejecutar Trabajo"
+   - Confirma la ejecución cuando se te solicite
+   - El progreso y los logs se mostrarán en la parte inferior
 
-**Este script te guiará paso a paso:**
-1. Te pedirá un nombre para el trabajo
-2. Elegirás una categoría de las disponibles (ejemplo: "abogado", "dentista", etc.)
-3. Seleccionarás una palabra clave específica (ejemplo: "Abogado especializado en familia")
-4. Elegirás una localidad (Gandia, Oliva, etc.)
-5. Confirmarás el envío con "s"
+6. **Monitorear la ejecución**
+   - Los mensajes de estado se mostrarán en el área de logs
+   - Puedes cancelar la ejecución en cualquier momento con el botón "Cancelar"
+   - Al finalizar, se te informará del número total de trabajos completados
 
-### Uso rápido del script avanzado:
+7. **Descargar resultados**
+   - **IMPORTANTE**: La CMD del Google Maps Scraper debe seguir abierta
+   - Cuando los trabajos terminen, ve a la dirección web mostrada (`http://localhost:8080`)
+   - Desde allí podrás ver y descargar los resultados en formato CSV
+   - **NOTA**: No cierres la CMD hasta haber descargado todos tus resultados
 
-```bash
-python scraper_advanced.py
-```
+## Instalación
 
-**Ejemplo de uso:**
-1. Introduce la dirección del servidor (por defecto http://localhost:8080)
-2. Ingresa un nombre como "Busqueda-Abogados-Gandia"
-3. Selecciona una categoría (por ejemplo: 1 para abogados)
-4. Para seleccionar varios keywords, escribe "1,3,5" o "all" para todos
-5. Selecciona una localidad (por ejemplo: 1 para Gandia)
-6. Personaliza radio (10000), profundidad (10) y tiempo máximo (15) o deja valores por defecto
-7. Confirma con "s" y luego selecciona "s" para monitorizar el estado
+### 1. Instalar Google Maps Scraper
 
-### Uso rápido del script por lotes:
+1. Descarga la última versión de Google Maps Scraper desde [GitHub](https://github.com/gosom/google-maps-scraper/releases/tag/v1.8.0)
+2. Descomprime el archivo descargado en una carpeta de tu elección
+3. Ejecuta el archivo ejecutable incluido:
+   - En Windows: Haz doble clic en el archivo `.exe`
+   - En macOS/Linux: Usa el comando `./google-maps-scraper`
+4. Se abrirá una ventana de línea de comandos y la API se iniciará automáticamente
+5. La API estará disponible en `http://localhost:8080` (o el puerto indicado en la CMD)
+6. **IMPORTANTE**: Mantén esta ventana abierta durante todo el proceso
 
-```bash
-# Para ejecutar un trabajo en todas las categorías y localizaciones:
-python batch_scraper.py
+### 2. Instalar Google Maps Scraper UI
 
-# Para ejecutar solo en categorías específicas (por ejemplo, abogados y dentistas) en una localización específica:
-python batch_scraper.py --categories "1,5" --locations "1"
+1. Descarga los archivos de este repositorio
+2. Asegúrate de tener Python 3.6 o superior instalado
+3. Instala las dependencias necesarias:
+   ```
+   pip install tkinter requests
+   ```
+4. Crea las carpetas necesarias si no existen:
+   ```
+   mkdir -p keywords location
+   ```
+5. Ejecuta la aplicación:
+   ```
+   python scraper_gui.py
+   ```
 
-# Para probar sin enviar solicitudes reales:
-python batch_scraper.py --dry-run
-```
+## Estructura de archivos
 
-### Uso de la Interfaz Gráfica (GUI):
+- `scraper_gui.py`: El archivo principal que contiene la interfaz gráfica
+- `keywords/`: Carpeta que contiene archivos de texto con palabras clave por categoría
+- `location/`: Carpeta que contiene archivos de texto con información de ubicaciones
 
-```bash
-python scraper_gui.py
-```
+## Ejemplos de uso comunes
 
-**Características de la interfaz gráfica:**
-1. Interfaz con pestañas para configurar todos los parámetros
-2. Selección visual de categorías y localizaciones mediante checkboxes
-3. Vista previa de palabras clave disponibles
-4. Información detallada de las localizaciones seleccionadas
-5. Resumen del trabajo antes de ejecutarlo
-6. Panel de logs para seguir el progreso
-7. Posibilidad de cancelar trabajos en ejecución
+### 1. Buscar restaurantes en Madrid
 
-**Los resultados** se guardarán automáticamente en la carpeta "results".
+Si quieres encontrar todos los restaurantes en Madrid:
+
+1. En la pestaña **Configuración**:
+   - Establece un radio de 10000 metros
+   - Establece una profundidad de 15
+   - Nombre del trabajo: "Restaurantes_Madrid"
+
+2. En la pestaña **Categorías y Keywords**:
+   - Selecciona "restaurantes" o crea una nueva categoría
+   - Asegúrate de incluir keywords como "restaurante", "comida", "cena", etc.
+
+3. En la pestaña **Localizaciones**:
+   - Selecciona "Madrid" o crea una nueva localización con las coordenadas de Madrid
+   - Si no existe, puedes crear la localización con estos datos:
+     - Nombre: Madrid
+     - Zoom: 12
+     - Latitud: 40.4167754
+     - Longitud: -3.7037902
+
+4. En la pestaña **Ejecución**:
+   - Actualiza el resumen para verificar la configuración
+   - Ejecuta el trabajo
+   - Espera a que termine y ve a http://localhost:8080 para descargar los resultados
+
+### 2. Buscar varios servicios en múltiples ubicaciones
+
+Si deseas buscar, por ejemplo, fontaneros, electricistas y carpinteros en varias ciudades:
+
+1. En la pestaña **Categorías y Keywords**:
+   - Selecciona las categorías: "fontanería", "electricistas" y "carpintería"
+   - O crea estas categorías si no existen
+
+2. En la pestaña **Localizaciones**:
+   - Selecciona varias ubicaciones de interés (p.ej., Valencia, Barcelona, Sevilla)
+
+3. En la pestaña **Ejecución**:
+   - Verás que se generarán varios trabajos (uno por cada combinación de categoría y localización)
+   - Por ejemplo: 3 categorías × 3 ubicaciones = 9 trabajos
+
+Este enfoque te permitirá obtener datos comparativos de diferentes servicios en distintas zonas geográficas con una sola operación.
+
+### 3. Extracción de datos específicos para investigación de mercado
+
+Para análisis de mercado más detallados:
+
+1. Crea categorías muy específicas:
+   - Por ejemplo: "restaurantes_vegetarianos", "gimnasios_24h", "tiendas_ecológicas"
+   - Añade keywords precisas que apunten exactamente al tipo de negocio
+
+2. Ajusta la profundidad:
+   - Usa valores más altos (15-20) para obtener resultados más exhaustivos
+   - Ten en cuenta que valores más altos tardarán más tiempo en procesarse
+
+3. Refina el radio:
+   - Para áreas urbanas densas, un radio más pequeño (5000m) puede ser suficiente
+   - Para áreas rurales o búsquedas regionales, aumenta el radio (20000m o más)
+
+Con estos datos, podrás identificar nichos de mercado, analizar la competencia y descubrir oportunidades de negocio con precisión.
+
+### Consejos para obtener mejores resultados
+
+- **Sé específico con tus keywords**: Cuanto más precisas sean, mejores resultados obtendrás
+- **Equilibra la profundidad**: Una profundidad muy alta dará más resultados pero tardará más tiempo
+- **Divide áreas grandes**: Para ciudades muy grandes, considera dividirlas en zonas y hacer búsquedas separadas
+- **Revisa los resultados parciales**: Puedes ir a localhost:8080 mientras se ejecutan los trabajos para ver los resultados parciales
+- **Guarda tus configuraciones**: Anota las configuraciones que dan buenos resultados para reutilizarlas en el futuro
+
+## Créditos y Agradecimientos
+
+Esta interfaz gráfica es un complemento para el excelente [Google Maps Scraper](https://github.com/gosom/google-maps-scraper) desarrollado por [gosom](https://github.com/gosom). El scraper original proporciona una API robusta para extraer datos de Google Maps, mientras que esta interfaz facilita su uso para usuarios no técnicos.
+
+Agradecemos a:
+- El autor original de Google Maps Scraper por crear y mantener una herramienta tan útil
+- Todos los contribuyentes que han ayudado a mejorar este proyecto
+- La comunidad de usuarios que proporciona retroalimentación valiosa
+
+## Notas legales
+
+Este software se proporciona "tal cual", sin garantía de ningún tipo. Utiliza esta herramienta de acuerdo con los términos de servicio de Google y las leyes aplicables en tu jurisdicción. El scraping de datos puede estar sujeto a restricciones legales en algunos casos.
 
 ---
 
-## Estructura del proyecto
-
-- `keywords/`: Directorio con archivos de palabras clave organizados por categoría.
-- `location/`: Directorio con archivos de coordenadas para diferentes localidades.
-- `results/`: Directorio donde se guardarán los resultados de los trabajos.
-- `scraper_launcher.py`: Launcher gráfico para seleccionar el modo de scraping.
-- `scraper_gui.py`: Interfaz gráfica completa para configurar y ejecutar trabajos.
-
-## Scripts disponibles
-
-### 1. scraper_launcher.py
-
-Launcher gráfico que permite seleccionar entre los diferentes modos de scraping disponibles.
-
-#### Uso:
-
-```bash
-python scraper_launcher.py
-```
-
-El launcher te permite elegir entre:
-- Scraper Simple: Ejecuta el script básico interactivo
-- Batch Scraper: Ejecuta el script para procesamiento por lotes
-- Interfaz Gráfica (GUI): Abre la interfaz gráfica completa
-
-### 2. scraper_gui.py
-
-Interfaz gráfica completa para configurar y ejecutar trabajos de scraping con todas las opciones.
-
-#### Uso:
-
-```bash
-python scraper_gui.py
-```
-
-Características:
-- Interfaz de pestañas para una organización clara
-- Pestaña de Configuración: Host API, nombre del trabajo, radio, profundidad, tiempos
-- Pestaña de Categorías: Selección múltiple de categorías con vista previa de keywords
-- Pestaña de Localizaciones: Selección múltiple de localizaciones con información detallada
-- Pestaña de Ejecución: Resumen del trabajo, panel de logs, controles de ejecución
-- Gestión automatizada de resultados
-
-### 3. scraper.py
-
-Script básico para realizar un solo trabajo de scraping.
-
-#### Uso:
-
-```bash
-python scraper.py
-```
-
-El script te guiará interactivamente para:
-- Introducir un nombre para el trabajo
-- Seleccionar una categoría de palabras clave
-- Seleccionar una palabra clave específica
-- Seleccionar una localidad
-- Enviar la solicitud a la API
-
-### 4. scraper_advanced.py
-
-Versión avanzada que permite seleccionar múltiples palabras clave y monitorea el estado del trabajo hasta que se complete.
-
-#### Uso:
-
-```bash
-python scraper_advanced.py
-```
-
-Características adicionales:
-- Posibilidad de seleccionar múltiples palabras clave o todas dentro de una categoría
-- Configuración personalizada de radio, profundidad y tiempo máximo
-- Monitoreo del estado del trabajo en tiempo real
-- Guardado automático de los resultados
-
-### 5. batch_scraper.py
-
-Script para procesamiento por lotes que permite ejecutar varios trabajos secuencialmente.
-
-#### Uso:
-
-```bash
-python batch_scraper.py [opciones]
-```
-
-#### Opciones:
-
-```
---host TEXT               API host URL (por defecto: http://localhost:8080)
---categories TEXT         Índices de categorías a procesar separados por comas (ej: "1,2,3")
---locations TEXT          Índices de localidades a procesar separados por comas (ej: "1,2")
---keywords TEXT           Palabras clave específicas o "all" para todas (por defecto: all)
---radius INTEGER          Radio de búsqueda en metros (por defecto: 10000)
---depth INTEGER           Profundidad de búsqueda (por defecto: 10)
---max-time INTEGER        Tiempo máximo para cada trabajo en minutos (por defecto: 15)
---wait-time INTEGER       Tiempo máximo de espera para la finalización del trabajo en minutos (por defecto: 30)
---job-prefix TEXT         Prefijo para los nombres de los trabajos
---dry-run                 Simular ejecución sin enviar trabajos reales
-```
-
-#### Ejemplos:
-
-Ejecutar para todas las categorías y localidades:
-```bash
-python batch_scraper.py
-```
-
-Ejecutar solo para las categorías 1 y 3 en la localidad 2:
-```bash
-python batch_scraper.py --categories "1,3" --locations "2"
-```
-
-Simular ejecución sin enviar trabajos:
-```bash
-python batch_scraper.py --dry-run
-```
-
-## Formato de archivos
-
-### Archivos de keywords (keywords/*.txt)
-
-Cada línea contiene una palabra clave distinta.
-
-### Archivos de localidades (location/*.txt)
-
-Cada archivo contiene tres líneas:
-1. Nivel de zoom
-2. Latitud
-3. Longitud
-
-## Requisitos
-
-- Python 3.6 o superior
-- Módulos: requests, tkinter (incluido en la mayoría de instalaciones de Python)
-- API de [google-maps-scraper](https://github.com/gosom/google-maps-scraper.git) v1.8.0 instalada y ejecutándose en el puerto 8080
-
-Instalar dependencias:
-```bash
-pip install requests
-```
-
-## Formato de la solicitud API
-
-```json
-{
-  "name": "string",
-  "keywords": [
-    "string"
-  ],
-  "lang": "es",
-  "zoom": 0,
-  "lat": "string",
-  "lon": "string",
-  "fast_mode": true,
-  "radius": 10000,
-  "depth": 10,
-  "email": true,
-  "max_time": 15,
-  "proxies": []
-}
-```
-
-## Resultados
-
-Los resultados se guardan en el directorio `results/` en formato JSON. 
+**NOTA**: Necesitarás reemplazar `config_tab.png`, `categories_tab.png`, `locations_tab.png`, y `execution_tab.png` con capturas de pantalla reales de tu aplicación para proporcionar una guía visual.
