@@ -65,8 +65,8 @@ Google Maps Scraper UI es una interfaz gráfica que facilita el uso del [Google 
 
 7. **Descargar resultados**
    - **IMPORTANTE**: La CMD del Google Maps Scraper debe seguir abierta
-   - Cuando los trabajos terminen, ve a la dirección web mostrada (`http://localhost:8080`)
-   - Desde allí podrás ver y descargar los resultados en formato CSV
+   - **Ficheros CSV**: Se guardan en (`API/webdata`), estos csv guardan el contenido de cada uno de los Trabajos. 
+   - Ademas en la dirección web mostrada (`http://localhost:8080`) tambien puedes descargarlos directamente , desde allí podrás ver y descargar los resultados en formato CSV directamente.(Solo se puede descargar si estan en verde y pone ok, si pone Working o pending estan en proceso.)
    - **NOTA**: No cierres la CMD hasta haber descargado todos tus resultados
 
 ## Instalación
