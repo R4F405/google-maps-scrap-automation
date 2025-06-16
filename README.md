@@ -1,203 +1,204 @@
 # Google Maps Scraper UI
 
-## Descripción
-Google Maps Scraper UI es una interfaz gráfica que facilita el uso del [Google Maps Scraper](https://github.com/gosom/google-maps-scraper) para extraer datos de negocios desde Google Maps. Esta herramienta permite seleccionar categorías de negocios y localizaciones, configurar parámetros de búsqueda y gestionar los trabajos de extracción de datos de forma visual e intuitiva, sin necesidad de usar la línea de comandos.
+## Description
+Google Maps Scraper UI is a graphical user interface designed to simplify the use of the powerful [Google Maps Scraper](https://github.com/gosom/google-maps-scraper) developed by [gosom](https://github.com/gosom). This tool allows you to visually select business categories and locations, configure search parameters, and manage data extraction jobs intuitively, without needing to use the command line.
 
-## Cómo Usar
+## How to Use
 
-### Pasos previos
+### Prerequisites
 
-1. **Iniciar Google Maps Scraper API**
-   - Ejecuta el archivo `.exe` que se encuentra dentro de la carpeta `API`
-   - Se abrirá una ventana de línea de comandos (CMD) y la API se iniciará automáticamente
-   - La API estará disponible en `http://localhost:8080` (o el puerto indicado en la CMD)
-   - **IMPORTANTE**: No cierres la ventana de CMD durante todo el proceso. Debe permanecer abierta para que la API funcione.
+1.  **Start the Google Maps Scraper API**
+    * Navigate to the `API` folder included in this repository.
+    * Run the `.exe` executable file.
+    * A command-line (CMD) window will open, and the API will start automatically.
+    * The API will be accessible at `http://localhost:8080` (or the port indicated in the CMD window).
+    * **IMPORTANT**: Do not close the command-line window during the entire process. It must remain open for the API to function.
 
-2. **Verificar que la API está funcionando**
-   - Abre tu navegador y visita la dirección que aparece en la línea de comandos (ej: `http://localhost:8080`)
-   - Deberías ver la interfaz web del Google Maps Scraper
-   - **NOTA**: No es necesario modificar ninguna configuración desde esta interfaz web. Toda la configuración se hará desde nuestra aplicación.
+2.  **Verify the API is Running**
+    * Open your web browser and navigate to the address from the command-line window (e.g., `http://localhost:8080`).
+    * You should see the web interface of the Google Maps Scraper.
+    * **NOTE**: You do not need to modify any settings from this web interface. All configuration will be handled through our desktop application.
 
-### Usando Google Maps Scraper UI
+### Using the Google Maps Scraper UI
 
-1. **Iniciar la aplicación**
-> Se recomienda utlizar pantalla completa
+1.  **Launch the Application**
+    > For the best experience, it is recommended to use the application in full-screen mode.
 
-     - Ejecuta `scraper_gui.py`
-     - Se abrirá la interfaz gráfica con varias pestañas
+    * Run `scraper_gui.py`.
+    * The graphical user interface will open, displaying several tabs.
 
-2. **Configuración General (Pestaña "Configuración")**
-   ![Configuración Tab](images/config_tab.png)
-   - **Host API**: Mantén el valor predeterminado (`http://localhost:8080`) o ajústalo si la API se ejecuta en otro puerto
-   - **Nombre del trabajo**: Introduce un nombre descriptivo para tu trabajo de extracción
-   - **Radio (metros)**: Define el radio de búsqueda alrededor de cada ubicación (ej: 10000 para 10km)
-   - **Profundidad**: Define cuántos resultados quieres extraer (valores más altos = más resultados)
-   - **Tiempo máximo (minutos)**: Límite de tiempo para cada trabajo
-   - **Tiempo de espera (minutos)**: Tiempo máximo de espera para que finalice un trabajo
+2.  **General Configuration (Configuration Tab)**
+    ![Configuration Tab](images/config_tab.png)
+    * **API Host**: Keep the default value (`http://localhost:8080`) or adjust it if the API is running on a different port.
+    * **Job Name**: Enter a descriptive name for your extraction job.
+    * **Radius (meters)**: Define the search radius around each location (e.g., `10000` for 10km).
+    * **Depth**: Specify how many results you want to extract (higher values yield more results but take longer).
+    * **Max Time (minutes)**: Set a time limit for each job.
+    * **Wait Time (minutes)**: Set the maximum time to wait for a job to finish.
 
-3. **Seleccionar Categorías y Keywords (Pestaña "Categorías y Keywords")**
-   ![Categorías Tab](images/categories_tab.png)
-   - Marca las casillas de las categorías de negocios que quieres buscar
-   - Puedes usar los botones "Seleccionar Todas" o "Deseleccionar Todas"
-   - La lista de keywords asociados a las categorías seleccionadas aparecerá en el área de la derecha
-   - **Agregar nueva categoría**: Puedes crear nuevas categorías con el formulario de la derecha
-   - **Agregar keywords a categoría**: Puedes añadir keywords a una categoría existente
+3.  **Select Categories and Keywords (Categories & Keywords Tab)**
+    ![Categories Tab](images/categories_tab.png)
+    * Check the boxes for the business categories you want to search for.
+    * Use the "Select All" or "Deselect All" buttons for convenience.
+    * The keywords associated with the selected categories will appear in the list on the right.
+    * **Add New Category**: You can create new categories using the form on the right.
+    * **Add Keywords to Category**: You can add new keywords to an existing category.
 
-4. **Seleccionar Localizaciones (Pestaña "Localizaciones")**
-   ![Localizaciones Tab](images/locations_tab.png)
-   - Marca las casillas de las ubicaciones donde quieres buscar
-   - Puedes ver la información detallada de las ubicaciones seleccionadas haciendo clic en "Ver Información de Localizaciones Seleccionadas"
-   - **Agregar nueva localización**: Puedes añadir nuevas ubicaciones con el formulario de la derecha
-   - Si necesitas coordenadas, usa el botón "Abrir Mapa para Obtener Coordenadas"
+4.  **Select Locations (Locations Tab)**
+    ![Locations Tab](images/locations_tab.png)
+    * Check the boxes for the locations where you want to search.
+    * Click "View Selected Locations Info" to see detailed information for the chosen locations.
+    * **Add New Location**: You can add new locations using the form on the right.
+    * If you need coordinates, use the "Open Map to Get Coordinates" button.
 
-5. **Resumen y Ejecución (Pestaña "Ejecución")**
-   ![Ejecución Tab](images/execution_tab.png)
-   - Haz clic en "Actualizar Resumen" para ver un resumen del trabajo que vas a ejecutar
-   - Revisa todos los parámetros configurados
-   - Cuando estés listo, haz clic en "Ejecutar Trabajo"
-   - Confirma la ejecución cuando se te solicite
-   - El progreso y los logs se mostrarán en la parte inferior
+5.  **Summary and Execution (Execution Tab)**
+    ![Execution Tab](images/execution_tab.png)
+    * Click "Update Summary" to review a summary of the job you are about to run.
+    * Carefully check all the configured parameters.
+    * When ready, click "Run Job".
+    * Confirm the execution when prompted.
+    * The progress and logs will be displayed at the bottom.
 
-6. **Monitorear la ejecución**
-   - Los mensajes de estado se mostrarán en el área de logs
-   - Puedes cancelar la ejecución en cualquier momento con el botón "Cancelar"
-   - Al finalizar, se te informará del número total de trabajos completados
+6.  **Monitor the Execution**
+    * Status messages will appear in the logs area.
+    * You can cancel the execution at any time with the "Cancel" button.
+    * Upon completion, you will be notified of the total number of completed jobs.
+    * **IMPORTANT**: Do not start a new job until the UI confirms that the current job has been successfully submitted to the API.
 
-   **No ejecutar otro mas hasta que salga en la pantalla scraper_gui que el el actual trabajo ya se ha enviado a la API correctamente**
+7.  **Download Results**
+    * **IMPORTANT**: The Google Maps Scraper CMD window must remain open.
+    * **CSV Files**: The results for each job are saved as CSV files in the `API/webdata` directory.
+    * You can also download them directly from the web interface at `http://localhost:8080`. From there, you can view and download the results once they are ready (status will be 'ok' and highlighted in green). If the status is 'Working' or 'pending', the job is still in progress.
+    * **NOTE**: Do not close the CMD window until you have downloaded all your results.
 
-7. **Descargar resultados**
-   - **IMPORTANTE**: La CMD del Google Maps Scraper debe seguir abierta
-   - **Ficheros CSV**: Se guardan en (`API/webdata`), estos csv guardan el contenido de cada uno de los Trabajos. 
-   - Ademas en la dirección web mostrada (`http://localhost:8080`) tambien puedes descargarlos directamente , desde allí podrás ver y descargar los resultados en formato CSV directamente.(Solo se puede descargar si estan en verde y pone ok, si pone Working o pending estan en proceso.)
-   - **NOTA**: No cierres la CMD hasta haber descargado todos tus resultados
+## Installation
 
-## Instalación
+### 1. Install the Google Maps Scraper API
 
-### 1. Instalar Google Maps Scraper API
+#### Option 1: Use the Included Executable (Recommended)
+1.  The Google Maps Scraper executable is already included in the `API` folder of this repository.
+2.  Simply run the `.exe` file within that folder to start the API.
+3.  A command-line window will open, and the API will launch automatically.
+4.  No further configuration is necessary.
 
-#### Opción 1: Usar el ejecutable incluido (recomendado)
-1. El archivo ejecutable de Google Maps Scraper ya está incluido en la carpeta `API` de este repositorio
-2. Simplemente ejecuta el archivo `.exe` dentro de esa carpeta para iniciar la API
-3. Se abrirá una ventana de línea de comandos (CMD) y la API se iniciará automáticamente
-4. No es necesario realizar ninguna otra configuración
+#### Option 2: Download the Latest Version (If you need to update)
+If you prefer to download the latest version or the included executable does not work:
 
-#### Opción 2: Descargar la última versión (si necesitas actualizar)
-Si prefieres descargar la versión más reciente o el ejecutable incluido no funciona:
+1.  Download the latest release of Google Maps Scraper from [GitHub](https://github.com/gosom/google-maps-scraper/releases/tag/v1.8.0).
+2.  Unzip the downloaded file into a folder of your choice.
+3.  Run the included executable:
+    * On Windows: Double-click the `.exe` file.
+    * On macOS/Linux: Use the command `./google-maps-scraper`.
+4.  A command-line window will open, and the API will start automatically.
+5.  The API will be available at `http://localhost:8080` (or the port shown in the CMD).
 
-1. Descarga la última versión de Google Maps Scraper desde [GitHub](https://github.com/gosom/google-maps-scraper/releases/tag/v1.8.0)
-2. Descomprime el archivo descargado en una carpeta de tu elección
-3. Ejecuta el archivo ejecutable incluido:
-   - En Windows: Haz doble clic en el archivo `.exe`
-   - En macOS/Linux: Usa el comando `./google-maps-scraper`
-4. Se abrirá una ventana de línea de comandos y la API se iniciará automáticamente
-5. La API estará disponible en `http://localhost:8080` (o el puerto indicado en la CMD)
+**IMPORTANT**: Keep the command-line window open throughout the entire process.
 
-**IMPORTANTE**: Mantén la ventana de CMD abierta durante todo el proceso.
+### 2. Install the Google Maps Scraper UI
 
-### 2. Instalar Google Maps Scraper UI
+1.  Download the files from this repository.
+2.  Ensure you have Python 3.6 or higher installed.
+3.  Install the required dependencies:
+    ```bash
+    pip install tkinter requests
+    ```
+4.  Create the necessary folders if they do not exist:
+    ```bash
+    mkdir -p keywords location
+    ```
+5.  Run the application:
+    ```bash
+    python scraper_gui.py
+    ```
 
-1. Descarga los archivos de este repositorio (o utiliza los que ya tienes)
-2. Asegúrate de tener Python 3.6 o superior instalado
-3. Instala las dependencias necesarias:
-   ```
-   pip install tkinter requests
-   ```
-4. Crea las carpetas necesarias si no existen:
-   ```
-   mkdir -p keywords location
-   ```
-5. Ejecuta la aplicación:
-   ```
-   python scraper_gui.py
-   ```
+## File Structure
 
-## Estructura de archivos
+-   `scraper_gui.py`: The main application file containing the graphical user interface.
+-   `keywords/`: A directory containing text files with keywords, organized by category.
+-   `location/`: A directory containing text files with location information (coordinates and zoom level).
+-   `API/`: A directory containing the Google Maps Scraper executable.
 
-- `scraper_gui.py`: El archivo principal que contiene la interfaz gráfica
-- `keywords/`: Carpeta que contiene archivos de texto con palabras clave por categoría
-- `location/`: Carpeta que contiene archivos de texto con información de ubicaciones
-- `API/`: Carpeta que contiene el ejecutable de Google Maps Scraper
+## Common Use Cases
 
-## Ejemplos de uso comunes
+### 1. Searching for Restaurants in Madrid
 
-### 1. Buscar restaurantes en Madrid
+To find all restaurants in Madrid:
 
-Si quieres encontrar todos los restaurantes en Madrid:
+1.  In the **Configuration** tab:
+    * Set the radius to `10000` meters.
+    * Set the depth to `15`.
+    * Name the job "Restaurants_Madrid".
 
-1. En la pestaña **Configuración**:
-   - Establece un radio de 10000 metros
-   - Establece una profundidad de 15
-   - Nombre del trabajo: "Restaurantes_Madrid"
+2.  In the **Categories & Keywords** tab:
+    * Select "restaurants" or create a new category.
+    * Ensure keywords like "restaurant", "food", "dining", etc., are included.
 
-2. En la pestaña **Categorías y Keywords**:
-   - Selecciona "restaurantes" o crea una nueva categoría
-   - Asegúrate de incluir keywords como "restaurante", "comida", "cena", etc.
+3.  In the **Locations** tab:
+    * Select "Madrid" or create a new location with Madrid's coordinates.
+    * If it doesn't exist, you can create it with this data:
+        * Name: Madrid
+        * Zoom: 12
+        * Latitude: 40.4167754
+        * Longitude: -3.7037902
 
-3. En la pestaña **Localizaciones**:
-   - Selecciona "Madrid" o crea una nueva localización con las coordenadas de Madrid
-   - Si no existe, puedes crear la localización con estos datos:
-     - Nombre: Madrid
-     - Zoom: 12
-     - Latitud: 40.4167754
-     - Longitud: -3.7037902
+4.  In the **Execution** tab:
+    * Update the summary to verify the settings.
+    * Run the job.
+    * Wait for it to finish and go to `http://localhost:8080` to download the results.
 
-4. En la pestaña **Ejecución**:
-   - Actualiza el resumen para verificar la configuración
-   - Ejecuta el trabajo
-   - Espera a que termine y ve a http://localhost:8080 para descargar los resultados
+### 2. Searching for Multiple Services Across Various Locations
 
-### 2. Buscar varios servicios en múltiples ubicaciones
+To search for plumbers, electricians, and carpenters in several cities:
 
-Si deseas buscar, por ejemplo, fontaneros, electricistas y carpinteros en varias ciudades:
+1.  In the **Categories & Keywords** tab:
+    * Select the categories: "plumbing", "electricians", and "carpentry".
+    * Create these categories if they don't already exist.
 
-1. En la pestaña **Categorías y Keywords**:
-   - Selecciona las categorías: "fontanería", "electricistas" y "carpintería"
-   - O crea estas categorías si no existen
+2.  In the **Locations** tab:
+    * Select multiple locations of interest (e.g., Valencia, Barcelona, Seville).
 
-2. En la pestaña **Localizaciones**:
-   - Selecciona varias ubicaciones de interés (p.ej., Valencia, Barcelona, Sevilla)
+3.  In the **Execution** tab:
+    * You will see that multiple jobs will be generated (one for each combination of category and location).
+    * For example: 3 categories × 3 locations = 9 jobs.
 
-3. En la pestaña **Ejecución**:
-   - Verás que se generarán varios trabajos (uno por cada combinación de categoría y localización)
-   - Por ejemplo: 3 categorías × 3 ubicaciones = 9 trabajos
+This approach allows you to gather comparative data on different services across various geographic areas in a single operation.
 
-Este enfoque te permitirá obtener datos comparativos de diferentes servicios en distintas zonas geográficas con una sola operación.
+### 3. Specific Data Extraction for Market Research
 
-### 3. Extracción de datos específicos para investigación de mercado
+For more detailed market analysis:
 
-Para análisis de mercado más detallados:
+1.  Create highly specific categories:
+    * For example: "vegetarian_restaurants", "24h_gyms", "organic_stores".
+    * Add precise keywords that target the exact type of business.
 
-1. Crea categorías muy específicas:
-   - Por ejemplo: "restaurantes_vegetarianos", "gimnasios_24h", "tiendas_ecológicas"
-   - Añade keywords precisas que apunten exactamente al tipo de negocio
+2.  Adjust the depth:
+    * Use higher values (15-20) for more exhaustive results.
+    * Keep in mind that higher values will take longer to process.
 
-2. Ajusta la profundidad:
-   - Usa valores más altos (15-20) para obtener resultados más exhaustivos
-   - Ten en cuenta que valores más altos tardarán más tiempo en procesarse
+3.  Refine the radius:
+    * For dense urban areas, a smaller radius (e.g., 5000m) may be sufficient.
+    * For rural areas or regional searches, increase the radius (e.g., 20000m or more).
 
-3. Refina el radio:
-   - Para áreas urbanas densas, un radio más pequeño (5000m) puede ser suficiente
-   - Para áreas rurales o búsquedas regionales, aumenta el radio (20000m o más)
+With this data, you can identify market niches, analyze competition, and uncover business opportunities with precision.
 
-Con estos datos, podrás identificar nichos de mercado, analizar la competencia y descubrir oportunidades de negocio con precisión.
+## Tips for Better Results
 
-### Consejos para obtener mejores resultados
+-   **Be specific with your keywords**: The more precise they are, the better the results.
+-   **Balance the depth**: A very high depth will yield more results but will take more time.
+-   **Divide large areas**: For very large cities, consider dividing them into zones and running separate searches.
+-   **Check partial results**: You can visit `http://localhost:8080` while jobs are running to see partial results.
+-   **Save your configurations**: Note down the settings that yield good results to reuse them in the future.
 
-- **Sé específico con tus keywords**: Cuanto más precisas sean, mejores resultados obtendrás
-- **Equilibra la profundidad**: Una profundidad muy alta dará más resultados pero tardará más tiempo
-- **Divide áreas grandes**: Para ciudades muy grandes, considera dividirlas en zonas y hacer búsquedas separadas
-- **Revisa los resultados parciales**: Puedes ir a localhost:8080 mientras se ejecutan los trabajos para ver los resultados parciales
-- **Guarda tus configuraciones**: Anota las configuraciones que dan buenos resultados para reutilizarlas en el futuro
+## Credits and Acknowledgements
 
-## Créditos y Agradecimientos
+This graphical interface is a companion tool for the excellent [Google Maps Scraper](https://github.com/gosom/google-maps-scraper) developed by [gosom](https://github.com/gosom). The original scraper provides a robust API for extracting data from Google Maps, while this interface makes it accessible to non-technical users.
 
-Esta interfaz gráfica es un complemento para el excelente [Google Maps Scraper](https://github.com/gosom/google-maps-scraper) desarrollado por [gosom](https://github.com/gosom). El scraper original proporciona una API robusta para extraer datos de Google Maps, mientras que esta interfaz facilita su uso para usuarios no técnicos.
+Special thanks to:
+-   The original author of Google Maps Scraper for creating and maintaining such a useful tool.
+-   All contributors who have helped improve this project.
+-   The user community for providing valuable feedback.
 
-Agradecemos a:
-- El autor original de Google Maps Scraper por crear y mantener una herramienta tan útil
-- Todos los contribuyentes que han ayudado a mejorar este proyecto
-- La comunidad de usuarios que proporciona retroalimentación valiosa
+## Legal Disclaimer
 
-## Notas legales
+This software is provided "as is", without warranty of any kind. Use this tool in accordance with Google's terms of service and the applicable laws in your jurisdiction. Data scraping may be subject to legal restrictions in some cases.
 
-Este software se proporciona "tal cual", sin garantía de ningún tipo. Utiliza esta herramienta de acuerdo con los términos de servicio de Google y las leyes aplicables en tu jurisdicción. El scraping de datos puede estar sujeto a restricciones legales en algunos casos.
