@@ -28,7 +28,8 @@ Google Maps Scraper UI is a graphical user interface designed to simplify the us
     * The graphical user interface will open, displaying several tabs.
 
 2.  **General Configuration (Configuration Tab)**
-    ![Configuration Tab](images/config_tab.png)
+
+     ![Configuration Tab](images/config_tab.png)
     * **API Host**: Keep the default value (`http://localhost:8080`) or adjust it if the API is running on a different port.
     * **Job Name**: Enter a descriptive name for your extraction job.
     * **Radius (meters)**: Define the search radius around each location (e.g., `10000` for 10km).
@@ -36,7 +37,7 @@ Google Maps Scraper UI is a graphical user interface designed to simplify the us
     * **Max Time (minutes)**: Set a time limit for each job.
     * **Wait Time (minutes)**: Set the maximum time to wait for a job to finish.
 
-3.  **Select Categories and Keywords (Categories & Keywords Tab)**
+4.  **Select Categories and Keywords (Categories & Keywords Tab)**
     ![Categories Tab](images/categories_tab.png)
     * Check the boxes for the business categories you want to search for.
     * Use the "Select All" or "Deselect All" buttons for convenience.
@@ -44,14 +45,14 @@ Google Maps Scraper UI is a graphical user interface designed to simplify the us
     * **Add New Category**: You can create new categories using the form on the right.
     * **Add Keywords to Category**: You can add new keywords to an existing category.
 
-4.  **Select Locations (Locations Tab)**
+5.  **Select Locations (Locations Tab)**
     ![Locations Tab](images/locations_tab.png)
     * Check the boxes for the locations where you want to search.
     * Click "View Selected Locations Info" to see detailed information for the chosen locations.
     * **Add New Location**: You can add new locations using the form on the right.
     * If you need coordinates, use the "Open Map to Get Coordinates" button.
 
-5.  **Summary and Execution (Execution Tab)**
+6.  **Summary and Execution (Execution Tab)**
     ![Execution Tab](images/execution_tab.png)
     * Click "Update Summary" to review a summary of the job you are about to run.
     * Carefully check all the configured parameters.
@@ -59,13 +60,13 @@ Google Maps Scraper UI is a graphical user interface designed to simplify the us
     * Confirm the execution when prompted.
     * The progress and logs will be displayed at the bottom.
 
-6.  **Monitor the Execution**
+7.  **Monitor the Execution**
     * Status messages will appear in the logs area.
     * You can cancel the execution at any time with the "Cancel" button.
     * Upon completion, you will be notified of the total number of completed jobs.
     * **IMPORTANT**: Do not start a new job until the UI confirms that the current job has been successfully submitted to the API.
 
-7.  **Download Results**
+8.  **Download Results**
     * **IMPORTANT**: The Google Maps Scraper CMD window must remain open.
     * **CSV Files**: The results for each job are saved as CSV files in the `API/webdata` directory.
     * You can also download them directly from the web interface at `http://localhost:8080`. From there, you can view and download the results once they are ready (status will be 'ok' and highlighted in green). If the status is 'Working' or 'pending', the job is still in progress.
